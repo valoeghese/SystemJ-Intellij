@@ -1,0 +1,19 @@
+{
+  tokens=[
+    SEMI=';'
+    PARALLEL='||'
+    LP='('
+    RP=')'
+    COLON=':'
+    LB='{'
+    RB='}'
+    ARROW='->'
+    ID='regexp:\p{Alpha}\w*}'
+  ]
+}
+
+root ::= root_item *
+private root_item ::= !<<eof>> clock_domain
+
+clock_domain ::= ID ARROW LB RB {pin=2 recoverWhile=clock_domain_recover}
+private clock_domain_recover ::= !(ID ARROW | LB | RB)
